@@ -27,11 +27,15 @@
 class MyModule {
 
   private:
+    boolean _isAvailable;
 
 
   public:
     void print();
     void printName();
+    void setAvailability(boolean isAvailable);
+    boolean isAvailable();
+    
     MyModule();
     MyModule(byte _id, char* _name);
 
@@ -42,7 +46,6 @@ class MyModule {
     */
     byte id;
     char *name;
-    boolean available;
 
 };
 

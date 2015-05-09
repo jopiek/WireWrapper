@@ -77,28 +77,25 @@ void WireClass::initWire() {
 }
 
 void WireClass::initModules() {
-  
+
   for (int i = 0; i <= 6; ++i) {
-    boolean ownModule = strcmp(myModules[i].name, "Module 1");
-    Serial.print("Checking Module "); 
+    boolean ownModule = !strcmp(myModules[i].name, "Module 1");
+    Serial.print("Checking Module ");
     Serial.println(myModules[i].name);
+
     if (!ownModule) { // skip myself ;)
       byte i2c_result = initTWIModule(myModules[i].id);
       boolean module_found = false;
       MyModule module = myModules[i];
-      Serial.print("Found a module on Address: 0x");
-      Serial.println(myModules[i].id, HEX);
+      myModules[i].setAvailability(false);
       if (i2c_result == 0) {
         module_found = true;
-          /*
-          if (module.id == 0x44) {
-            myModules[2].available = true;
-            Serial.println("Module 1 identified...");
-          }
-          */
+        Serial.print("Found ");
+        Serial.print(myModules[i].name);
+        Serial.print(" on Address: 0x");
+        Serial.println(myModules[i].id, HEX);
+        myModules[i].setAvailability(true);
       }
-      myModules[i].available = module_found;
-      
     }
   }
 
@@ -157,7 +154,7 @@ int WireClass::print_i2c_status(void)
 
 void WireClass::stopAction() {
 
-  if ((myModules[2].id == 0x44) || (!myModules[2].available)) {
+  if ((myModules[2].id == 0x44) || (!myModules[2].isAvailable())) {
     Serial.print("Whoops! Can't find ");
     Serial.print(myModules[2].name);
     Serial.println(" module!!!");
@@ -251,12 +248,12 @@ byte WireClass::getModuleIdentifiers() {
   byte modules = 0;
 
   for (int i = 1; i < numModules; ++i) {
-    if ((myModules[i].id == 0x44) && (myModules[i].available)) modules = modules | 0b1;
-    if ((myModules[i].id == 0x42) && (myModules[i].available)) modules = modules | 0b10;
-    if ((myModules[i].id == 0x50) && (myModules[i].available)) modules = modules | 0b100;
-    if ((myModules[i].id == 0x48) && (myModules[i].available)) modules = modules | 0b1000;
-    if ((myModules[i].id == 0x46) && (myModules[i].available))  modules = modules | 0b10000;
-    if ((myModules[i].id == 0x52) && (myModules[i].available))  modules = modules | 0b100000;
+    if ((myModules[i].id == 0x44) && (myModules[i].isAvailable())) modules = modules | 0b1;
+    if ((myModules[i].id == 0x42) && (myModules[i].isAvailable())) modules = modules | 0b10;
+    if ((myModules[i].id == 0x50) && (myModules[i].isAvailable())) modules = modules | 0b100;
+    if ((myModules[i].id == 0x48) && (myModules[i].isAvailable())) modules = modules | 0b1000;
+    if ((myModules[i].id == 0x46) && (myModules[i].isAvailable()))  modules = modules | 0b10000;
+    if ((myModules[i].id == 0x52) && (myModules[i].isAvailable()))  modules = modules | 0b100000;
   }
   Serial.println(modules, BIN);
   return modules; // let op, in SimCommunication wordt MSB op één gezet!

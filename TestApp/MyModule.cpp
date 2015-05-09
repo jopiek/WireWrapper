@@ -17,14 +17,22 @@ MyModule::MyModule() {
   // default constructor
   id = 0;
   name = "";
-  available = false;
+  _isAvailable = false;
 }
 
 MyModule::MyModule(byte _id, char *_name) {
   id = _id;
   //strcpy(name, _name);
   name = _name;
-  available = false;
+  _isAvailable = false;
+}
+
+boolean MyModule::isAvailable() {
+  return _isAvailable;
+}
+
+void MyModule::setAvailability(boolean isAvailable) {
+  _isAvailable = isAvailable;
 }
 
 void MyModule::print() {
@@ -33,7 +41,7 @@ void MyModule::print() {
   Serial.print(" name: ");
   Serial.print(name);
   Serial.print(" available: ");
-  Serial.print(available);
+  Serial.print(_isAvailable);
 }
 
 void MyModule::printName() {
