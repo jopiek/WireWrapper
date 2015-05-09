@@ -86,19 +86,19 @@ void WireClass::initModules() {
       byte i2c_result = initTWIModule(myModules[i].id);
       boolean module_found = false;
       MyModule module = myModules[i];
-      Serial.print("Found a module on Address: ");
-      Serial.println(myModules[2].id, HEX);
+      Serial.print("Found a module on Address: 0x");
+      Serial.println(myModules[i].id, HEX);
       if (i2c_result == 0) {
         module_found = true;
-        if (debug_serial) {
-          Serial.println(module.id);
+          /*
           if (module.id == 0x44) {
             myModules[2].available = true;
             Serial.println("Module 1 identified...");
           }
-        }
+          */
       }
       myModules[i].available = module_found;
+      
     }
   }
 
