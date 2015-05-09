@@ -154,10 +154,11 @@ int WireClass::print_i2c_status(void)
 
 void WireClass::stopAction() {
 
-  if ((myModules[2].id == 0x44) || (!myModules[2].isAvailable())) {
+  if (!(myModules[2].id == 0x44) && (myModules[2].isAvailable())) {
     Serial.print("Whoops! Can't find ");
     Serial.print(myModules[2].name);
-    Serial.println(" module!!!");
+    Serial.print(" on address ");
+    Serial.println(myModules[2].id, HEX);
     return;
   }
   byte My_Controller_Address = myModules[2].id;
@@ -172,16 +173,22 @@ void WireClass::stopAction() {
   Wire.beginTransmission(My_Controller_Address);         // slave addr
   Wire.write(STOP_ACTION);                       // WRITE command
   Wire.endTransmission(I2C_NOSTOP, 500);      // blocking Tx, no STOP
+  Wire.beginTransmission(My_Controller_Address);         // slave addr
+  Wire.write(STOP_ACTION);                       // WRITE command
+  Wire.endTransmission(I2C_NOSTOP, 500);      // blocking Tx, no STOP
 
 }
 
 void WireClass::startAction() {
   // reset optimization values!
-  /*
-  if ((myModules[2].id == 0x44) || (!myModules[2].available)) {
-  	Serial.println("Whoops! Can't find CPR module!!!");
-  	return;
-  }*/
+
+  if (!(myModules[2].id == 0x44) && (myModules[2].isAvailable())) {
+    Serial.print("Whoops! Can't find ");
+    Serial.print(myModules[2].name);
+    Serial.print(" on address ");
+    Serial.println(myModules[2].id, HEX);
+    return;
+  }
   byte My_Controller_Address = myModules[2].id;
 
   Serial.print("Name: ");
@@ -190,6 +197,9 @@ void WireClass::startAction() {
   Serial.println(myModules[2].id, HEX);
 
   // Send message to My Module
+  Wire.beginTransmission(My_Controller_Address);         // slave addr
+  Wire.write(START_ACTION);                       // WRITE command
+  Wire.endTransmission(I2C_NOSTOP, 500);      // blocking Tx, no STOP
   Wire.beginTransmission(My_Controller_Address);         // slave addr
   Wire.write(START_ACTION);                       // WRITE command
   Wire.endTransmission(I2C_NOSTOP, 500);      // blocking Tx, no STOP
