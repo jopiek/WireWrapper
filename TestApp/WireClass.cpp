@@ -104,6 +104,15 @@ void WireClass::initModules() {
 
 }
 
+void WireClass::printModules() {
+
+  for (int i = 0; i <= 6; ++i) {
+    myModules[i].print();
+    Serial.println();
+  }
+
+}
+
 
 int WireClass::initTWIModule(uint8_t module_address) {
   Wire.beginTransmission(module_address);

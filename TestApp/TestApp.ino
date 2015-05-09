@@ -1,18 +1,11 @@
 /*
 
    TestApp i2c Modules
-   
+   9th of May 2015
    
 */
 
 #include <i2c_t3.h>
-#include <SPI.h>
-#include <SdFat.h>
-#include <Time.h>
-#include <TeensyRTC.h>
-#include <ArduinoJson.h>
-#include <Vector.h>
-
 #include "WireClass.h"
 
 WireClass          wireTest(I2C_RATE_2400);
@@ -20,16 +13,6 @@ const boolean getDebugInfo = true;
 unsigned long logTimer = 0;
 int logTimeout = 100;
 int linkLedSpeed = 0;
-
-/*
-
-Note: following variables are now declared in SDCardControl.h
-SdFat sd;
-SdFile file;
-SdFile dirFile;
-
-ArduinoOutStream cout(Serial);
-*/
 
 int heartbeatLED = 13;
 unsigned long hbTimer = 0;
@@ -62,6 +45,9 @@ void checkSerial() {
      } else if (input == 'e') {
         Serial.println("Stop Action");
         wireTest.stopAction();
+     }  else if (input == 'p') {
+        Serial.println("Print all modules...");
+        wireTest.printModules();
      } 
      
    }

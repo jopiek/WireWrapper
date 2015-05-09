@@ -111,51 +111,26 @@ class WireClass
 		void stopAction();
 		void startAction();
 		byte getModuleIdentifiers();
+
+                void printModules();
+
 		
 	private:
-	
+	  
 	  int print_i2c_status();
 	  
 	  word readWordValueFromWire(byte memaddr, byte slave_addr);
 	  unsigned long readLongValueFromWire(byte memaddr, byte slave_addr);
 	  byte readByteValueFromWire(byte memaddr, byte slave_addr);
 	  
-
-    //static void receiveCPRWireEvent(size_t len);
-    //static void requestCPRWireEvent();
-      
-	  ///void SetCPRStateLEDPin(boolean LedState);
-
-	  //void writeValueToMemory(word value, byte memaddr); // deprecated
-	   
-	  //void writeWordValueToMemory(word value, byte memaddr);
-	  //void writeULongValueToMemory(unsigned long value, byte memaddr);
-	  //void writeByteValueToMemory(byte value, byte memaddr);
-
-		//static byte requestedCPRState; 
-
 	  static uint8_t cprValBuffer[CPR_BUFLEN];
-    static i2c_rate i2c_speed;
-    //static uint8_t cmd;
-	  //static size_t addr;
-	  
-	  // All modules that could be available 
-	  /*
-	  Zie constructor!
-	  boolean CPRModule    = false;
-	  boolean ECGModule    = false;
-	  boolean TouchModule  = false;
-	  boolean AuscModule   = false;
-	  boolean HeadModule   = false;
-	  boolean EdisonModule = false;
-	  */
+          static i2c_rate i2c_speed;
+  
 	  
 	  void writeWordValueToMemory(word value, byte memaddr);
 	  void writeULongValueToMemory(unsigned long value, byte memaddr);
 	  void writeByteValueToMemory(byte value, byte memaddr);
 
-
-	  // int _speed;
 	  
 	  static i2c_rate i2c_master_speed;
 	  
