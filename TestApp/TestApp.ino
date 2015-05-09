@@ -8,7 +8,7 @@
 #include <i2c_t3.h>
 #include "WireClass.h"
 
-WireClass          wireTest(I2C_RATE_2400);
+WireClass wireTest(I2C_RATE_2400);
 const boolean getDebugInfo = true;
 unsigned long logTimer = 0;
 int logTimeout = 100;
@@ -25,7 +25,7 @@ void setup() {
   Serial.println("System starting...");
   wireTest.initWire();
   delay(1000);
-  wireTest.initModules();
+
   byte modules = wireTest.getModuleIdentifiers();
   pinMode(heartbeatLED, OUTPUT);
 }
@@ -48,6 +48,9 @@ void checkSerial() {
     }  else if (input == 'p') {
       Serial.println("Print all modules...");
       wireTest.printModules();
+    } else if (input == 'i') {
+      Serial.println("Scanning list of modules...");
+      wireTest.initModules();
     }
 
   }

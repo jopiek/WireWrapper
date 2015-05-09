@@ -92,16 +92,8 @@ class WireClass
 {
   public:
     WireClass(i2c_rate speed);
-    //Vector<SimModule *> simModules; // zie de constructor voor modules zelf!
+
     MyModule* myModules = new MyModule[numModules];
-
-    // = (SimModule*)malloc(sizeof(SimModule) * numModules);
-
-    //void writeValueToWireBuffer(byte value, byte memaddr);
-    //void writeValueToWireBuffer(word value, byte memaddr);
-    //void writeValueToWireBuffer(unsigned long value, byte memaddr);
-
-    //byte getRequestedCPRState();
 
     void initWire();
     void initModules();

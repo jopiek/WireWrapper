@@ -77,20 +77,23 @@ void WireClass::initWire() {
 }
 
 void WireClass::initModules() {
-
+  
   for (int i = 0; i <= 6; ++i) {
-    
-    if (!strcmp(myModules[i].name, "Module 1")) { // skip myself ;)
+    boolean ownModule = strcmp(myModules[i].name, "Module 1");
+    Serial.print("Checking Module "); 
+    Serial.println(myModules[i].name);
+    if (!ownModule) { // skip myself ;)
       byte i2c_result = initTWIModule(myModules[i].id);
       boolean module_found = false;
       MyModule module = myModules[i];
-      Serial.print("Address: ");
-      Serial.println(myModules[2].id);
+      Serial.print("Found a module on Address: ");
+      Serial.println(myModules[2].id, HEX);
       if (i2c_result == 0) {
         module_found = true;
         if (debug_serial) {
           Serial.println(module.id);
           if (module.id == 0x44) {
+            myModules[2].available = true;
             Serial.println("Module 1 identified...");
           }
         }
@@ -160,8 +163,7 @@ void WireClass::stopAction() {
     Serial.println(" module!!!");
     return;
   }
-  byte My_Controller_Address = 0x44; //myModules[2].id;
-
+  byte My_Controller_Address = myModules[2].id;
 
   Serial.print("Addr: ");
   Serial.print(My_Controller_Address, HEX);
