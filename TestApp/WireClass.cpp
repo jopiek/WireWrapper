@@ -80,7 +80,7 @@ void WireClass::initModules() {
 
   for (int i = 0; i <= 6; ++i) {
     
-    if (strcmp(myModules[i].name, "Module 1")) { // skip myself ;)
+    if (!strcmp(myModules[i].name, "Module 1")) { // skip myself ;)
       byte i2c_result = initTWIModule(myModules[i].id);
       boolean module_found = false;
       MyModule module = myModules[i];
@@ -155,7 +155,9 @@ int WireClass::print_i2c_status(void)
 void WireClass::stopAction() {
 
   if ((myModules[2].id == 0x44) || (!myModules[2].available)) {
-    Serial.println("Whoops! Can't find my module!!!");
+    Serial.print("Whoops! Can't find ");
+    Serial.print(myModules[2].name);
+    Serial.println(" module!!!");
     return;
   }
   byte My_Controller_Address = 0x44; //myModules[2].id;
@@ -170,7 +172,7 @@ void WireClass::stopAction() {
 
   Wire.beginTransmission(My_Controller_Address);         // slave addr
   Wire.write(STOP_ACTION);                       // WRITE command
-  Wire.endTransmission(I2C_NOSTOP);       // blocking Tx, no STOP
+  Wire.endTransmission(I2C_NOSTOP, 500);      // blocking Tx, no STOP
 
 }
 
@@ -191,7 +193,7 @@ void WireClass::startAction() {
   // Send message to My Module
   Wire.beginTransmission(My_Controller_Address);         // slave addr
   Wire.write(START_ACTION);                       // WRITE command
-  Wire.endTransmission(I2C_NOSTOP);       // blocking Tx, no STOP
+  Wire.endTransmission(I2C_NOSTOP, 500);      // blocking Tx, no STOP
 }
 
 
