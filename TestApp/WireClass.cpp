@@ -79,8 +79,8 @@ void WireClass::initWire() {
 void WireClass::initModules() {
 
   for (int i = 0; i <= 6; ++i) {
-
-    if ((myModules[i].name != "SimMainboard")) { // skip myself ;)
+    
+    if (strcmp(myModules[i].name, "Module 1")) { // skip myself ;)
       byte i2c_result = initTWIModule(myModules[i].id);
       boolean module_found = false;
       MyModule module = myModules[i];
@@ -89,12 +89,9 @@ void WireClass::initModules() {
       if (i2c_result == 0) {
         module_found = true;
         if (debug_serial) {
-          //Serial.print("Module: ");
-          //module.print();
-          //Serial.println(" detected...");
           Serial.println(module.id);
           if (module.id == 0x44) {
-            Serial.println("CPR Module geïdentificeerd...");
+            Serial.println("Module 1 identified...");
           }
         }
       }
@@ -256,8 +253,8 @@ byte WireClass::getModuleIdentifiers() {
     if ((myModules[i].id == 0x48) && (myModules[i].available)) modules = modules | 0b1000;
     if ((myModules[i].id == 0x46) && (myModules[i].available))  modules = modules | 0b10000;
     if ((myModules[i].id == 0x52) && (myModules[i].available))  modules = modules | 0b100000;
-    Serial.println(modules);
   }
+  Serial.println(modules, BIN);
   return modules; // let op, in SimCommunication wordt MSB op één gezet!
 }
 

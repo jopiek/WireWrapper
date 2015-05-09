@@ -1,12 +1,12 @@
 /*
-WireClass 
+WireClass
 9 mei 2015
 
 Wrapper Around i2c_t3
 Used in RobotPatient.com Simulators
 
 */
- 
+
 #pragma once
 
 #ifndef WireClass_h
@@ -46,13 +46,13 @@ const uint8_t HEAD_Controller_Address     = 0x50; // slave addr, reserved
 
 
 /*
- CPRControl States 
- 
+ CPRControl States
+
  Note 1: Wire can only politely ask and stores it in RequestedCPRState
  CPRControl is responsible: sets the state by asking for getRequestedCPRState
- 
+
  Note 2: These states are compatible with CPRStates
- 
+
 
 */
 
@@ -62,24 +62,24 @@ const uint8_t HEAD_Controller_Address     = 0x50; // slave addr, reserved
 
 const byte cpmMemAddr	 				  = 0x00; //  compressions per minute (word / cpm)
 const byte cDepth0MemAddr	 		  = 0x02; //  compression depth highest (relaxed) point (word / mm)
-const byte cTimeStamp0MemAddr	  = 0x04; //  compression timestamp highest point (ulong millis) 
+const byte cTimeStamp0MemAddr	  = 0x04; //  compression timestamp highest point (ulong millis)
 const byte cDepth1MemAddr	 		  = 0x08; //  compression depth lowest (compressed) point (word / mm)
-const byte cTimeStamp1MemAddr	  = 0x0A; //  compression timestamp lowest point (ulong millis) 
-const byte cCountMemAddr	 	    = 0x0E; //  compression cumulative counter for session (#) 
+const byte cTimeStamp1MemAddr	  = 0x0A; //  compression timestamp lowest point (ulong millis)
+const byte cCountMemAddr	 	    = 0x0E; //  compression cumulative counter for session (#)
 
 // --------  Ventilations -------- //
 
 const byte vpmMemAddr	 				  = 0x10; //  ventilations per minute (word / cpm)
 const byte vVolumeMemAddr	 		  = 0x12; //  ventilation inFlow volume (cc)
-const byte vTimeStampMemAddr	  = 0x14; //  ventilation timestamp inFlow (ulong millis) 
+const byte vTimeStampMemAddr	  = 0x14; //  ventilation timestamp inFlow (ulong millis)
 const byte vCumVolumeMemAddr	  = 0x18; //  ventilation depth highest (relaxed) point (word / mm)
-const byte vCumTimeStampMemAddr = 0x1A; //  ventilation cumulative volume timestamp expired (ulong millis) 
-const byte vCountMemAddr	 	    = 0x1E; //  ventilation cumulative counter for session (#) 
+const byte vCumTimeStampMemAddr = 0x1A; //  ventilation cumulative volume timestamp expired (ulong millis)
+const byte vCountMemAddr	 	    = 0x1E; //  ventilation cumulative counter for session (#)
 
 // ------  Finger placement ------ //
 
 const byte fFinger0MemAddr		  = 0x22; //  finger sensor 0 value (word / pressure)
-const byte fTimeStamp0MemAddr	  = 0x24; //  finger sensor 0 timestamp (ulong millis) 
+const byte fTimeStamp0MemAddr	  = 0x24; //  finger sensor 0 timestamp (ulong millis)
 const byte fFinger1MemAddr	 	  = 0x28; //  finger sensor 1 value (word / pressure)
 const byte fTimeStamp1MemAddr	  = 0x2A; //  finger sensor 1 timestamp (ulong millis)
 
@@ -90,52 +90,52 @@ const int numModules = 7;
 
 class WireClass
 {
-	public: 
-	  WireClass(i2c_rate speed);
-	  //Vector<SimModule *> simModules; // zie de constructor voor modules zelf!
-	   MyModule* myModules = new MyModule[numModules];
+  public:
+    WireClass(i2c_rate speed);
+    //Vector<SimModule *> simModules; // zie de constructor voor modules zelf!
+    MyModule* myModules = new MyModule[numModules];
 
-	  // = (SimModule*)malloc(sizeof(SimModule) * numModules);
-	  
-	  //void writeValueToWireBuffer(byte value, byte memaddr);
-	  //void writeValueToWireBuffer(word value, byte memaddr);
-	  //void writeValueToWireBuffer(unsigned long value, byte memaddr);
-	  
-	  //byte getRequestedCPRState();
-	  
-	  void initWire();
-	  void initModules();
-	  
-	  int initTWIModule(uint8_t module_address);
-		
-		void stopAction();
-		void startAction();
-		byte getModuleIdentifiers();
+    // = (SimModule*)malloc(sizeof(SimModule) * numModules);
 
-                void printModules();
+    //void writeValueToWireBuffer(byte value, byte memaddr);
+    //void writeValueToWireBuffer(word value, byte memaddr);
+    //void writeValueToWireBuffer(unsigned long value, byte memaddr);
 
-		
-	private:
-	  
-	  int print_i2c_status();
-	  
-	  word readWordValueFromWire(byte memaddr, byte slave_addr);
-	  unsigned long readLongValueFromWire(byte memaddr, byte slave_addr);
-	  byte readByteValueFromWire(byte memaddr, byte slave_addr);
-	  
-	  static uint8_t cprValBuffer[CPR_BUFLEN];
-          static i2c_rate i2c_speed;
-  
-	  
-	  void writeWordValueToMemory(word value, byte memaddr);
-	  void writeULongValueToMemory(unsigned long value, byte memaddr);
-	  void writeByteValueToMemory(byte value, byte memaddr);
+    //byte getRequestedCPRState();
 
-	  
-	  static i2c_rate i2c_master_speed;
-	  
-	  
-	  
+    void initWire();
+    void initModules();
+
+    int initTWIModule(uint8_t module_address);
+
+    void stopAction();
+    void startAction();
+    byte getModuleIdentifiers();
+
+    void printModules();
+
+
+  private:
+
+    int print_i2c_status();
+
+    word readWordValueFromWire(byte memaddr, byte slave_addr);
+    unsigned long readLongValueFromWire(byte memaddr, byte slave_addr);
+    byte readByteValueFromWire(byte memaddr, byte slave_addr);
+
+    static uint8_t cprValBuffer[CPR_BUFLEN];
+    static i2c_rate i2c_speed;
+
+
+    void writeWordValueToMemory(word value, byte memaddr);
+    void writeULongValueToMemory(unsigned long value, byte memaddr);
+    void writeByteValueToMemory(byte value, byte memaddr);
+
+
+    static i2c_rate i2c_master_speed;
+
+
+
 };
 
 #endif
@@ -192,8 +192,8 @@ class WireClass
 // [compression value: 2 bytes][compressions per minute: 2 bytes][ventilations value: 2 bytes]
 // [ventilations per minute: 2 bytes][fingers place 1: 1 byte][fingers place 2: 1 byte][timestamp : 4 bytes]
 // [0,1][2,3][4,5][6,7][8,9][10,11][12,13,14,15]
-// Dump mode nog implementeren, even goed denken hoe we dat doen, 
-// dan iets van elke tussenmeting ook oversturen oid. 
+// Dump mode nog implementeren, even goed denken hoe we dat doen,
+// dan iets van elke tussenmeting ook oversturen oid.
 // Is wel nuttig / belangrijk voor expert reanimaties vergelijken.
 // -------------------------------------------------------------------------------------------
 
@@ -238,7 +238,7 @@ void setup()
 
   Serial.println("CPR DATA:");
   delay(500);
-  startCPR(); 
+  startCPR();
   delay(5000);
   startCPR();
   digitalWrite(debug_led,HIGH);         // pulse LED when reading
@@ -246,7 +246,7 @@ void setup()
 
 /*
 void loop()
-{ 
+{
   //digitalWrite(debug_led,HIGH);         // pulse LED when reading
   //getCTimeStamp1();
   //printVentilationStuff();
@@ -256,29 +256,29 @@ void loop()
 void WireClass::stopCPR() {
   Wire.beginTransmission(target);         // slave addr
   Wire.write(STOP_CPR);                       // WRITE command
-  Wire.endTransmission(I2C_NOSTOP);       // blocking Tx, no STOP  
+  Wire.endTransmission(I2C_NOSTOP);       // blocking Tx, no STOP
 }
 
 void startCPR() {
   Wire.beginTransmission(target);         // slave addr
   Wire.write(START_CPR);                       // WRITE command
-  Wire.endTransmission(I2C_NOSTOP);       // blocking Tx, no STOP  
+  Wire.endTransmission(I2C_NOSTOP);       // blocking Tx, no STOP
 }
 
 word getCPM() {
-  return readWordFromWireAddr(0x0); 
+  return readWordFromWireAddr(0x0);
 }
 
 unsigned long getcTimeStamp1() {
-  return readLongFromWireAddr(0x4); 
+  return readLongFromWireAddr(0x4);
 }
 
 word getVPM() {
-  return readWordFromWireAddr(0x10); 
+  return readWordFromWireAddr(0x10);
 }
 
 unsigned long getvTimeStamp() {
-  return readLongFromWireAddr(0x14); 
+  return readLongFromWireAddr(0x14);
 }
 
 void WireClass::printVentilationStuff() {
@@ -313,11 +313,11 @@ void WireClass::printCompressionStuff() {
 
 void WireClass::printCPRData(unsigned long currtimestamp) {
   for (int counter = 0; counter < 5; counter++) {
-    Serial.print(CPRItems[counter]); 
+    Serial.print(CPRItems[counter]);
     Serial.print(",");
-    // later direct naar CSV op SD kaart 
+    // later direct naar CSV op SD kaart
   }
-  Serial.println(currtimestamp); 
+  Serial.println(currtimestamp);
   Serial.print("Own Timestamp: ");
   Serial.println(millis());
 }
@@ -328,7 +328,7 @@ word WireClass::readWordFromWireAddr(byte _address) {
   Wire.write(_address);                        // memory address
   Wire.endTransmission(I2C_NOSTOP);       // blocking Tx, no STOP
   Wire.requestFrom(target,2,I2C_STOP);    // READ 1 byte
-  byte dataIn1 = Wire.readByte(); 
+  byte dataIn1 = Wire.readByte();
   byte dataIn2 = Wire.readByte();
   word myOutput = ((dataIn1 << 8) | dataIn2);
   return myOutput;
@@ -340,7 +340,7 @@ byte WireClass::readByteFromWireAddr(byte _address) {
   Wire.write(_address);                        // memory address
   Wire.endTransmission(I2C_NOSTOP);       // blocking Tx, no STOP
   Wire.requestFrom(target,2,I2C_STOP);    // READ 1 byte
-  byte dataIn1 = Wire.readByte(); 
+  byte dataIn1 = Wire.readByte();
   return dataIn1;
 }
 
@@ -350,9 +350,9 @@ unsigned long WireClass::readLongFromWireAddr(byte _address) {
   Wire.write(_address);                        // memory address
   Wire.endTransmission(I2C_NOSTOP);       // blocking Tx, no STOP
   Wire.requestFrom(target,4,I2C_STOP);    // READ 1 byte
-  byte dataIn1 = Wire.readByte(); 
+  byte dataIn1 = Wire.readByte();
   byte dataIn2 = Wire.readByte();
-  byte dataIn3 = Wire.readByte(); 
+  byte dataIn3 = Wire.readByte();
   byte dataIn4 = Wire.readByte();
   unsigned long myOutput = ((dataIn1 << 32) | (dataIn2 << 16) | (dataIn3 << 8) | dataIn4);
   return myOutput;

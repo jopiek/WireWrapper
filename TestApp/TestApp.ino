@@ -2,7 +2,7 @@
 
    TestApp i2c Modules
    9th of May 2015
-   
+
 */
 
 #include <i2c_t3.h>
@@ -37,26 +37,26 @@ void loop() {
 
 
 void checkSerial() {
-   if (Serial.available() > 0) {
-     char input = Serial.read();
-     if (input == 'b') {
-        Serial.println("Start Action");
-        wireTest.startAction();
-     } else if (input == 'e') {
-        Serial.println("Stop Action");
-        wireTest.stopAction();
-     }  else if (input == 'p') {
-        Serial.println("Print all modules...");
-        wireTest.printModules();
-     } 
-     
-   }
+  if (Serial.available() > 0) {
+    char input = Serial.read();
+    if (input == 'b') {
+      Serial.println("Start Action");
+      wireTest.startAction();
+    } else if (input == 'e') {
+      Serial.println("Stop Action");
+      wireTest.stopAction();
+    }  else if (input == 'p') {
+      Serial.println("Print all modules...");
+      wireTest.printModules();
+    }
+
+  }
 }
 
 void heartbeat() {
-   if ((millis() - hbTimer > 100 && hbLEDState) || (millis() - hbTimer > 250)) {
-     hbTimer = millis();
-     hbLEDState = !hbLEDState;
-     digitalWrite(heartbeatLED, hbLEDState);
-   }
+  if ((millis() - hbTimer > 100 && hbLEDState) || (millis() - hbTimer > 250)) {
+    hbTimer = millis();
+    hbLEDState = !hbLEDState;
+    digitalWrite(heartbeatLED, hbLEDState);
+  }
 }
