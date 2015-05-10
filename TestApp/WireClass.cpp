@@ -78,7 +78,7 @@ void WireClass::initWire() {
 
 void WireClass::initModules() {
 
-  for (int i = 0; i <= 6; ++i) {
+  for (int i = 0; i <= numModules; ++i) {
     boolean ownModule = !strcmp(myModules[i].name, "Module 1");
     Serial.print("Checking Module ");
     Serial.println(myModules[i].name);
