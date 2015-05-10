@@ -23,7 +23,7 @@ The modules also have a boolean that indicates if the module isAvailable or not.
 
 * WireClass::initModules() does a scan for all modules that are available and set isAvailable to true if a module was found (default: false).
 
-## Code Example
+## Code & Test Example
 
 TestApp.ino itself is a demo of how MyModule and WireClass are being used.
 
@@ -39,10 +39,6 @@ Download the files and open them in Arduino IDE or some other IDE that has suppo
 ## API Reference
 
 ToDo: Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
-
-## Tests
-
-ToDo: Describe and show how to run the tests with code examples.
 
 ## Contributors
 
