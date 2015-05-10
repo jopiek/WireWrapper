@@ -28,8 +28,6 @@ class MyModule {
 
   private:
     boolean _isAvailable;
-
-
   public:
     void print();
     void printName();

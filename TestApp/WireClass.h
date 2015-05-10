@@ -4,7 +4,6 @@ WireClass
 
 Wrapper Around i2c_t3
 Used in RobotPatient.com Simulators
-
 */
 
 #pragma once
@@ -26,12 +25,12 @@ Used in RobotPatient.com Simulators
 #define SETRATE     			0x30
 
 #define START_ACTION   			0x40
-#define START_ACTION_DUMP               0x50
+#define START_ACTION_DUMP   0x50
 #define STOP_ACTION     		0x60
 
-#define CPR_MODULE_ADDR 	        0x42
-#define CPR_BUFLEN  			0x30 // 3*16 = 48 decimaal ruimte
-#define I2C_BUS 0				  // default BUS 0
+#define CPR_MODULE_ADDR 	  0x42
+#define CPR_BUFLEN  			  0x30 			// 3*16 = 48 decimaal ruimte
+#define I2C_BUS 						0				  // default BUS 0
 
 /*
 // Addresses of Simulation Add-ons
@@ -114,6 +113,9 @@ class WireClass
     word readWordValueFromWire(byte memaddr, byte slave_addr);
     unsigned long readLongValueFromWire(byte memaddr, byte slave_addr);
     byte readByteValueFromWire(byte memaddr, byte slave_addr);
+    
+    boolean moduleCorrectAndAvailable(SimModule module, byte id);
+
 
     static uint8_t cprValBuffer[CPR_BUFLEN];
     static i2c_rate i2c_speed;
